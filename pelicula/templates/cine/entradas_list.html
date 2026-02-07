@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h2>Funcion</h2>
+  {% for funcion in funentr %}
+        <div style="padding:20px; border: 2px solid red; margin-bottom: 10px">
+            <p>codigo: {{ funcion.codigo}}</p>
+            <p>Asiento: {{ funcion.asiento }}</p>
+            <p>Estado: {{ funcion.estado }}</p>
+            <p>Fecha: {{ funcion.fecha_venta }}</p>
+        </div>
+  {% endfor %}
+</body>
+</html>
