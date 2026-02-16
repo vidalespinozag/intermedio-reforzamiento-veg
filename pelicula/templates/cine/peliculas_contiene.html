@@ -1,8 +1,18 @@
 {% extends "cine/base_generic.html" %}
 
 {% block content %}
-    <h1>Peliculas</h1>
-
+    <p>Busqueda pelicula</p>
+    <div>
+        <form class="row g-3" method="GET">
+            <div class="col-auto">
+                <label for="staticEmail2" class="visually-hidden">Titulo de la pelicula</label>
+                <input type="text" class="form-control-plaintext" id="staticEmail2" name="q" placeholder="Buscar...." value="{{ q | escape}}">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+            </div>
+        </form>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -23,7 +33,7 @@
                 <td>{{ pelicula.duracion }}</td>
                 <td>{{ pelicula.genero }}</td>
                 <td>
-                    <a href="pelicula_details/{{ owner.id }}" class="btn btn-outline-success">Editar</a>
+                    <a href="pelicula_details/{{ pelicula.id }}" class="btn btn-outline-success">Editar</a>
                     <a href="#" class="btn btn-outline-warning">Eliminar</a>
 
                 </td>

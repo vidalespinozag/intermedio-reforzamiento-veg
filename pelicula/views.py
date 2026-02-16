@@ -1,278 +1,18 @@
+from django.db.models import Q, F
 from django.shortcuts import render
+
+from pelicula.models import Pelicula
+
+from funcion.models import Funcion
+
+from entrada.models import Entrada
+
+from snackCompra.models import SnackCompra
+
 
 # Create your views here.
 
-data_context = [
-    {
-        'id': 1,
-        'titulo': '300',
-        'duracion_min': '140',
-        'genero': 'Accion',
-        'clasificacion': '+18',
-        'activa': False,
-        'funciones': [
-            {
-                'funcion_id': 1,
-                'fecha_horario': '07-02-2026 16:00',
-                'precio': 35,
-                'estado': 'agotado',
-                'entradas': [
-                    {
-                        'entrada_id': 1,
-                        'codigo': 'E001',
-                        'asiento': 'A1',
-                        'estado': 'VENDIDA',
-                        'fecha_venta': '2026-02-01',
-                        'snacks': [
-                            {'producto': 'Popcorn', 'cantidad': 2, 'precio_unitario': 8},
-                            {'producto': 'Gaseosa', 'cantidad': 1, 'precio_unitario': 5},
-                        ]
-                    }
-                ]
-            },
-            {
-                'funcion_id': 2,
-                'fecha_horario': '07-02-2026 19:00',
-                'precio': 40,
-                'estado': 'agotado',
-                'entradas': []
-            },
-            {
-                'funcion_id': 3,
-                'fecha_horario': '07-02-2026 22:30',
-                'precio': 30,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
 
-    {
-        'id': 2,
-        'titulo': 'La llorona',
-        'duracion_min': '180',
-        'genero': 'Terror',
-        'clasificacion': '+18',
-        'activa': False,
-        'funciones': [
-            {
-                'funcion_id': 4,
-                'fecha_horario': '07-02-2026 10:00',
-                'precio': 30,
-                'estado': 'agotado',
-                'entradas': []
-            },
-            {
-                'funcion_id': 5,
-                'fecha_horario': '07-02-2026 13:00',
-                'precio': 30,
-                'estado': 'agotado',
-                'entradas': []
-            },
-            {
-                'funcion_id': 6,
-                'fecha_horario': '07-02-2026 21:00',
-                'precio': 35,
-                'estado': 'agotado',
-                'entradas': []
-            },
-        ]
-    },
-
-    {
-        'id': 3,
-        'titulo': 'Moana',
-        'duracion_min': '120',
-        'genero': 'Animacion',
-        'clasificacion': '+10',
-        'activa': True,
-        'funciones': [
-            {
-                'funcion_id': 7,
-                'fecha_horario': '07-02-2026 15:00',
-                'precio': 40,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 8,
-                'fecha_horario': '07-02-2026 17:00',
-                'precio': 45,
-                'estado': 'activo',
-                'entradas': [
-                    {
-                        'entrada_id': 2,
-                        'codigo': 'E010',
-                        'asiento': 'C3',
-                        'estado': 'VENDIDA',
-                        'fecha_venta': '2026-02-02',
-                        'snacks': [
-                            {'producto': 'Nachos', 'cantidad': 1, 'precio_unitario': 7.5}
-                        ]
-                    }
-                ]
-            },
-            {
-                'funcion_id': 9,
-                'fecha_horario': '07-02-2026 19:30',
-                'precio': 40,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
-
-    {
-        'id': 4,
-        'titulo': 'Que paso ayer?',
-        'duracion_min': '150',
-        'genero': 'Comedia',
-        'clasificacion': '+15',
-        'activa': True,
-        'funciones': [
-            {
-                'funcion_id': 10,
-                'fecha_horario': '07-02-2026 11:00',
-                'precio': 25,
-                'estado': 'agotado',
-                'entradas': []
-            },
-            {
-                'funcion_id': 11,
-                'fecha_horario': '07-02-2026 14:00',
-                'precio': 25,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 12,
-                'fecha_horario': '07-02-2026 18:00',
-                'precio': 30,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
-
-    {
-        'id': 5,
-        'titulo': 'La La Land',
-        'duracion_min': '200',
-        'genero': 'Musical',
-        'clasificacion': '+10',
-        'activa': True,
-        'funciones': [
-            {
-                'funcion_id': 13,
-                'fecha_horario': '07-02-2026 09:00',
-                'precio': 28,
-                'estado': 'agotado',
-                'entradas': []
-            },
-            {
-                'funcion_id': 14,
-                'fecha_horario': '07-02-2026 13:00',
-                'precio': 28,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 15,
-                'fecha_horario': '07-02-2026 20:00',
-                'precio': 35,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
-
-    {
-        'id': 6,
-        'titulo': 'Avengers',
-        'duracion_min': '160',
-        'genero': 'Accion',
-        'clasificacion': '+13',
-        'activa': True,
-        'funciones': [
-            {
-                'funcion_id': 16,
-                'fecha_horario': '07-02-2026 16:00',
-                'precio': 45,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 17,
-                'fecha_horario': '07-02-2026 19:00',
-                'precio': 50,
-                'estado': 'activo',
-                'entradas': [
-                    {
-                        'entrada_id': 3,
-                        'codigo': 'E020',
-                        'asiento': 'D5',
-                        'estado': 'VENDIDA',
-                        'fecha_venta': '2026-02-03',
-                        'snacks': [
-                            {'producto': 'Hot Dog', 'cantidad': 2, 'precio_unitario': 6},
-                            {'producto': 'Frank Futter', 'cantidad': 1, 'precio_unitario': 25}
-                        ]
-                    },
-                    {
-                        'entrada_id': 4,
-                        'codigo': 'E021',
-                        'asiento': 'E4',
-                        'estado': 'VENDIDA',
-                        'fecha_venta': '2026-02-04',
-                        'snacks': [
-                            {'producto': 'Hot Dog', 'cantidad': 2, 'precio_unitario': 6}
-                        ]
-                    }
-
-                ]
-            },
-            {
-                'funcion_id': 18,
-                'fecha_horario': '07-02-2026 22:00',
-                'precio': 55,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
-
-    {
-        'id': 7,
-        'titulo': 'Toy Story',
-        'duracion_min': '100',
-        'genero': 'Animacion',
-        'clasificacion': 'TP',
-        'activa': True,
-        'funciones': [
-            {
-                'funcion_id': 19,
-                'fecha_horario': '07-02-2026 10:00',
-                'precio': 25,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 20,
-                'fecha_horario': '07-02-2026 12:00',
-                'precio': 30,
-                'estado': 'activo',
-                'entradas': []
-            },
-            {
-                'funcion_id': 21,
-                'fecha_horario': '07-02-2026 15:00',
-                'precio': 30,
-                'estado': 'activo',
-                'entradas': []
-            },
-        ]
-    },
-]
 def obtener_entradas_por_funcion(data, funcion_id_buscado):
     entradas_filtradas = []
 
@@ -308,7 +48,87 @@ def pelicula_list(request):
     #     'edad':29,
     #     'pais': 'Perú'
     # }
+    data_context = Pelicula.objects.all()
     return render(request, 'cine/peliculas_list.html', context= {'data':data_context})
+
+def pelicula_unica(request):
+    try:
+        data_context = Pelicula.objects.get(
+            titulo="moana 2",
+            clasificacion="Animado"
+        )
+    except Pelicula.DoesNotExist:
+        data_context = None
+        print('No se encontró la película')
+    return render(request, 'cine/pelicula_unica.html', context={'data': data_context})
+
+
+def pelicula_contiene(request):
+    query = request.GET.get('q','')
+    print("QUERY : {}".format(query))
+
+    results = (Q(titulo__icontains=query))
+
+
+    data_context = Pelicula.objects.filter(results)
+
+    return render(request, 'cine/peliculas_contiene.html', context= {'data':data_context})
+
+
+def pelicula_termina(request):
+    query = request.GET.get('q', '')
+    print("QUERY : {}".format(query))
+
+    results = (Q(titulo__endswith=query))
+
+    data_context = Pelicula.objects.filter(results)
+
+    return render(request, 'cine/peliculas_termina.html', context={'data': data_context})
+
+def orden_mixto(request):
+    data_context = Funcion.objects.order_by('estado','-fecha_horario')
+    return render(request, 'cine/funciones_orden_mixto.html', context={'data': data_context})
+
+def entradas_rango(request):
+    data_context = Entrada.objects.all().order_by("id")[3:6]
+    return render(request, 'cine/entradas_rango.html', context={'data': data_context})
+
+def snacks_prefijo(request):
+    query = request.GET.get('q', '')
+    print("QUERY : {}".format(query))
+
+    results = (Q(producto__startswith=query))
+
+    data_context = SnackCompra.objects.filter(results)
+    return render(request, 'cine/snacks_prefijo.html', context={'data': data_context})
+
+def pelicula_actualizar(request):
+    query = request.GET.get('q', '')
+    pref = "Acc"
+    data_context = Pelicula.objects.all()
+    if query != "":
+        update_peliculas = Pelicula.objects.filter(genero__startswith=pref).order_by("titulo").update(clasificacion = query)
+        data_context = Pelicula.objects.filter(genero__startswith=pref).order_by("titulo")
+    return render(request, 'cine/peliculas_actualizar.html', context={'data': data_context})
+
+def entrada_eliminar(request, id_entrada):
+    try:
+        entrada = Entrada.objects.get(id=id_entrada)
+        entrada.delete()
+        data_context = {
+            'response': 'Entrada eliminada: {}'.format(id_entrada),
+        }
+    except Entrada.DoesNotExist:
+        data_context = {
+            'response': 'No existe esa entrada',
+        }
+    return render(request, 'cine/entrada_eliminar.html', context={'data': data_context})
+
+def actualizar_precios(request):
+    min_precio = 17
+    data_context = SnackCompra.objects.filter(precio_unitario__gte=min_precio)
+    data_context.update(precio_unitario=F('precio_unitario') - 2)
+    return render(request, 'cine/snacks_actualizar_precios.html', context={'data': data_context})
 
 def pelicula_detail(request, id_pelicula):
     print("ID Pelicula: {}".format(id_pelicula))
