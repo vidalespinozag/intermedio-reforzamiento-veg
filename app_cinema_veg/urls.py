@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-
+from rest_framework_simplejwt import views as jwt_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('peliculas/',include('pelicula.urls')),
-    path('',TemplateView.as_view(template_name="cine/home.html"))
+    path('',TemplateView.as_view(template_name="cine/home.html")),
+    path('api/token', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh',jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

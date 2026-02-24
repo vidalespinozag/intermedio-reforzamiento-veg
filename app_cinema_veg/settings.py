@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pelicula.apps.PeliculaConfig',
     'sala.apps.SalaConfig',
     'snackCompra.apps.SnackcompraConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    )
+}
 ROOT_URLCONF = 'app_cinema_veg.urls'
 
 TEMPLATES = [

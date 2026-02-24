@@ -1,0 +1,12 @@
+{% extends "cine/base_generic.html" %}
+{% block content %}
+    <h3>Editar peluicula con vistas basadas en clase</h3>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <a class="btn btn-danger" href="{% url 'pelicula_list_vbc' %}">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar Pelicula</button>
+        </form>
+    </div>
+{% endblock %}

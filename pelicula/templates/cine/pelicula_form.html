@@ -1,0 +1,38 @@
+{% extends "cine/base_generic.html" %}
+{% block content %}
+
+    <div class="card" style="width: 25rem;">
+        <div class="card-body">
+            <h4>Crear Owner</h4>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.titulo.label_tag }}
+                    {{ form.titulo }}
+                </div>
+                <div class="mb-3">
+                    {{ form.duracion.label_tag }}
+                    {{ form.duracion}}
+                </div>
+                <div class="mb-3">
+                    {{ form.clasificacion.label_tag }}
+                    {{ form.clasificacion}}
+                </div>
+                <div class="mb-3">
+                    {{ form.genero.label_tag }}
+                    {{ form.genero}}
+                </div>
+              <div class="mb-3">
+                    {{ form.director.label_tag }}
+                    {{ form.director}}
+                </div>
+{#                {{ form.as_p }}#}
+
+                <a class="btn btn-danger" href="{% url 'pelicula_list_vbc' %}">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Crear Owner</button>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

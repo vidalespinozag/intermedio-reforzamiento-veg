@@ -1,0 +1,34 @@
+{% extends "cine/base_generic.html" %}
+
+{% block content %}
+    <h1>Peliculas</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pelicula</th>
+            <th scope="col">Duracion</th>
+            <th scope="col">Clasificacion</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Opciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for pelicula in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ pelicula.titulo }}</td>
+                <td>{{ pelicula.clasificacion }}</td>
+                <td>{{ pelicula.duracion }}</td>
+                <td>{{ pelicula.genero }}</td>
+                <td>
+                    <a href="pelicula_details/{{ owner.id }}" class="btn btn-outline-success">Editar</a>
+                    <a href="#" class="btn btn-outline-warning">Eliminar</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

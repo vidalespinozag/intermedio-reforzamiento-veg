@@ -16,5 +16,19 @@ urlpatterns=[
     path('snack/prefijo',views.snacks_prefijo,name='snacks_prefijo'),
     path('actualizar',views.pelicula_actualizar ,name='pelicula_actualizar'),
     path('entradas/<int:id_entrada>/eliminar',views.entrada_eliminar, name="entrada_eliminar"),
-    path('snacks/actualizar-precios/',views.actualizar_precios,name="actualizar_precios")
+    path('snacks/actualizar-precios/',views.actualizar_precios,name="actualizar_precios"),
+    #serializer
+    path('pelicula_serializer/', views.PeliculaListSerializar, name="pelicula_list_serializer"),
+    path('funcion_serializer/', views.FuncionListSerializar, name="funcion_list_serializer"),
+    path('entrada_serializer/', views.EntradaListSerializar, name="entrada_list_serializer"),
+    path('pelicula_list_vbc/',views.PeliculaList.as_view(),name='pelicula_list_vbc'),
+    path('pelicula_create/',views.PeliculaCreate.as_view(),name='pelicula_create_vbc'),
+    path('pelicula_edit_vc/<int:pk>',views.PeliculaUpdate.as_view() ,name='pelicula_edit_vc'),
+    path('pelicula_delete_vc/<int:pk>',views.PeliculaDelete.as_view() ,name='pelicula_delete_vc'),
+    #api
+    path('pelicula_list_drf_def/',views.pelicula_api_view,name="pelicula_api_view"),
+    path('snack_list_drf_def/', views.snack_api_view, name="snack_api_view"),
+    path('entrada_list_drf_def',views.entrada_api_view,name="entrada_api_view"),
+    path('top_vendidas/',views.peliculas_mas_vendidas,name="peliculas_mas_vendidas"),
+    path('actualizar-precios/',views.actualizar_precios,name="actualizar-precios"),
 ]
